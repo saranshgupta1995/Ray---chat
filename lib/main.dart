@@ -17,21 +17,36 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Ray'),
+      home: MyHomePage(
+        title: 'Ray',
+        chatData: [],
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, this.chatData}) : super(key: key);
 
   final String title;
+  List<Map> chatData;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  onSendToBot(e) {
+    setState(() {
+      widget.chatData.add({
+        'n': 'S',
+        'message': e,
+        'type': 'user',
+        'name': 'Saransh'
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +56,15 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            ChatWindow(),
+            ChatWindow(
+              chatData: widget.chatData,
+            ),
             UserInputPanel(
               textColor: Colors.black87,
               placeHolderColor: Colors.black45,
               placeHolder: 'Start Typing..',
               buttonText: 'Send',
+              onSend: onSendToBot,
             )
           ],
         ));

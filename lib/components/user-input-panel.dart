@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ray/custom-widgets/basicTextInput.dart';
 
 class _UserInputPanelState extends State<UserInputPanel> {
+
+  String userInput='';
+
+  onTextChange(e){
+    userInput = e;
+  }
+
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
@@ -14,6 +21,7 @@ class _UserInputPanelState extends State<UserInputPanel> {
                 color: widget.textColor,
                 placeHolderColor: widget.placeHolderColor,
                 placeHolder: widget.placeHolder,
+                onChange: onTextChange,
               ),
             ],
           ),
@@ -21,7 +29,7 @@ class _UserInputPanelState extends State<UserInputPanel> {
         Column(
           children: <Widget>[
             FlatButton(
-              onPressed: null,
+              onPressed: ()=>widget.onSend(userInput),
               child: Text(widget.buttonText),
             )
           ],
