@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ray/components/bot-message.dart';
+import 'package:ray/components/user-message.dart';
 
 class _ChatWindowState extends State<ChatWindow> {
   final chatData = [
@@ -14,7 +15,7 @@ class _ChatWindowState extends State<ChatWindow> {
         children: List.generate(chatData.length, (i) {
           if (chatData[i]['type'] == 'bot')
             return BotMessage(data: chatData[i]);
-            else return Container();
+            else return UserMessage(data: chatData[i]);
         }),
       ),
     );
