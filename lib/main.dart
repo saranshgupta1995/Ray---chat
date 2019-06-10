@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
     getResponse().then((x) {
       setState(() {
         widget.chatData
-            .add({'n': 'R', 'message': e, 'type': 'bot', 'name': 'Ray Bot'});
+            .add({'n': 'R', 'message': e, 'type': 'option', 'name': 'Ray Bot'});
             isBotTyping = false;
       });
     });
