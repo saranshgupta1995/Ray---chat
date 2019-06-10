@@ -47,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         widget.chatData
             .add({'n': 'R', 'message': e, 'type': 'bot', 'name': 'Ray Bot'});
+            isBotTyping = false;
       });
     });
 
@@ -76,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
               placeHolder: 'Start Typing..',
               buttonText: 'Send',
               onSend: onSendToBot,
+              disabled: isBotTyping,
             )
           ],
         ));

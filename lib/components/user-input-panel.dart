@@ -22,6 +22,7 @@ class _UserInputPanelState extends State<UserInputPanel> {
                 placeHolderColor: widget.placeHolderColor,
                 placeHolder: widget.placeHolder,
                 onChange: onTextChange,
+                disabled: widget.disabled,
               ),
             ],
           ),
@@ -29,10 +30,12 @@ class _UserInputPanelState extends State<UserInputPanel> {
         Column(
           children: <Widget>[
             FlatButton(
-              onPressed: () {
-                widget.onSend(userInput);
-                onTextChange('');
-              },
+              onPressed: widget.disabled
+                  ? null
+                  : () {
+                      widget.onSend(userInput);
+                      onTextChange('');
+                    },
               child: Text(widget.buttonText),
             )
           ],
@@ -49,11 +52,13 @@ class UserInputPanel extends StatefulWidget {
   final Color placeHolderColor;
   final Function onChange;
   final Function onSend;
+  final bool disabled;
 
   const UserInputPanel(
       {Key key,
       this.placeHolder,
       this.onChange,
+      this.disabled,
       this.textColor,
       this.placeHolderColor,
       this.onSend,
