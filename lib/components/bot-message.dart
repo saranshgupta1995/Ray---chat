@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
 class _BotMessageState extends State<BotMessage> {
-  final chatData = [
-    {'n': 'S', 'message': 'Hi!!', 'type': 'bot', 'name': 'Saransh'},
-    {'n': 'S', 'message': 'Hi!!', 'type': 'bot', 'name': 'Saransh'},
-  ];
 
   Widget build(BuildContext context) {
     return Container(
