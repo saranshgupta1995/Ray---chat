@@ -9,6 +9,7 @@ class _BasicTextInputState extends State<BasicTextInput> {
 
     return TextField(
       controller: _textFieldController,
+      autofocus: widget.autofocus ?? false,
       enabled: !widget.disabled,
       decoration: new InputDecoration(
           border: InputBorder.none,
@@ -27,6 +28,7 @@ class BasicTextInput extends StatefulWidget {
   final String placeHolder;
   final String textValue;
   final bool disabled;
+  final bool autofocus;
   final Color color;
   final Color placeHolderColor;
   final Function onChange;
@@ -36,6 +38,7 @@ class BasicTextInput extends StatefulWidget {
       this.placeHolder,
       this.disabled,
       this.textValue,
+      this.autofocus,
       this.onChange,
       this.color,
       this.placeHolderColor})

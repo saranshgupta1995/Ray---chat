@@ -23,6 +23,7 @@ class _UserInputPanelState extends State<UserInputPanel> {
                 placeHolder: widget.placeHolder,
                 onChange: onTextChange,
                 disabled: widget.disabled,
+                autofocus: true,
               ),
             ],
           ),
