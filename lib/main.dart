@@ -36,14 +36,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool isBotTyping = false;
+
+  Future getResponse() async {
+    await Future.delayed(new Duration(milliseconds: 1000));
+  }
+
   onSendToBot(e) {
-    setState(() {
-      widget.chatData.add({
-        'n': 'S',
-        'message': e,
-        'type': 'user',
-        'name': 'Saransh'
+    getResponse().then((x) {
+      setState(() {
+        widget.chatData
+            .add({'n': 'R', 'message': e, 'type': 'bot', 'name': 'Ray Bot'});
       });
+    });
+
+    setState(() {
+      widget.chatData
+          .add({'n': 'S', 'message': e, 'type': 'user', 'name': 'Saransh'});
+
+      isBotTyping = true;
     });
   }
 
