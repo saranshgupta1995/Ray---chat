@@ -45,19 +45,31 @@ class _MyHomePageState extends State<MyHomePage> {
   onSendToBot(e) {
     getResponse().then((x) {
       setState(() {
+        // widget.chatData.add({
+        //   'n': 'R',
+        //   'options': [
+        //     'Hi',
+        //     'My Name is',
+        //     'Slim',
+        //     'Shady.',
+        //     'and the real',
+        //     'slim',
+        //     'shady',
+        //     'will stand up.'
+        //   ],
+        //   'type': 'option',
+        //   'name': 'Ray Bot'
+        // });
+        // widget.chatData.add({
+        //   'n': 'R',
+        //   'message': 'Pikachu',
+        //   'type': 'bot',
+        //   'name': 'Ray Bot'
+        // });
         widget.chatData.add({
           'n': 'R',
-          'options': [
-            'Hi',
-            'My Name is',
-            'Slim',
-            'Shady.',
-            'and the real',
-            'slim',
-            'shady',
-            'will stand up.'
-          ],
-          'type': 'option',
+          'message': 'Pikachu',
+          'type': 'ticket',
           'name': 'Ray Bot'
         });
         isBotTyping = false;
