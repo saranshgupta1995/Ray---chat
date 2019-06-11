@@ -45,9 +45,22 @@ class _MyHomePageState extends State<MyHomePage> {
   onSendToBot(e) {
     getResponse().then((x) {
       setState(() {
-        widget.chatData
-            .add({'n': 'R', 'message': e, 'type': 'option', 'name': 'Ray Bot'});
-            isBotTyping = false;
+        widget.chatData.add({
+          'n': 'R',
+          'options': [
+            'Hi',
+            'My Name is',
+            'Slim',
+            'Shady.',
+            'and the real',
+            'slim',
+            'shady',
+            'will stand up.'
+          ],
+          'type': 'option',
+          'name': 'Ray Bot'
+        });
+        isBotTyping = false;
       });
     });
 
@@ -57,6 +70,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
       isBotTyping = true;
     });
+  }
+
+  onOptionClick(x) {
+    print(x);
   }
 
   @override
@@ -70,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ChatWindow(
               chatData: widget.chatData,
+              onOptionClick: onOptionClick,
             ),
             UserInputPanel(
               textColor: Colors.black87,

@@ -26,7 +26,7 @@ class _ChatWindowState extends State<ChatWindow> {
               return TicketMessage(data: widget.chatData[i]);
               break;
             case 'option':
-              return OptionMessage(data: widget.chatData[i]);
+              return OptionMessage(data: widget.chatData[i],onOptionClick: widget.onOptionClick);
               break;
             default:
           }
@@ -38,8 +38,9 @@ class _ChatWindowState extends State<ChatWindow> {
 
 class ChatWindow extends StatefulWidget {
   final chatData;
+  final onOptionClick;
 
-  const ChatWindow({Key key, this.chatData}) : super(key: key);
+  const ChatWindow({Key key, this.chatData, this.onOptionClick}) : super(key: key);
 
   @override
   _ChatWindowState createState() => _ChatWindowState();
