@@ -38,40 +38,77 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool isBotTyping = false;
 
+  final responsesData = {
+    'hi': {
+      'text': 'Hi, what can I help you with?',
+      'type': 'text questions',
+      'questions': [
+        'How do I book a Ticket?',
+        'How do I cancel a Ticket?',
+        'I am unable to sign up',
+      ]
+    },
+    'how do i book a ticket?': {
+      'text': 'Let me help you through the flow',
+      'type': 'text',
+      'questions': []
+    },
+  };
+
+  String getLastUserMessage(List<dynamic> list) {
+    return list.reversed.firstWhere((x) => x['type'] == 'user')['message'];
+  }
+
   Future getResponse() async {
     await Future.delayed(new Duration(milliseconds: 1000));
   }
 
   onSendToBot(e) {
     getResponse().then((x) {
+      final String userMessage =
+          (getLastUserMessage(widget.chatData).toLowerCase());
+      final completeResponse = responsesData[userMessage] ?? {'type': ''};
       setState(() {
-        widget.chatData.add({
-          'n': 'R',
-          'options': [
-            'Hi',
-            'My Name is',
-            'Slim',
-            'Shady.',
-            'and the real',
-            'slim',
-            'shady',
-            'will stand up.'
-          ],
-          'type': 'option',
-          'name': 'Ray Bot'
+        final String respType = completeResponse['type'];
+        respType.split(' ').forEach((type) {
+          switch (type) {
+            case 'text':
+              widget.chatData.add({
+                'n': 'R',
+                'message': completeResponse[type] ?? 'Still need to study this',
+                'type': 'bot',
+                'name': 'Ray Bot'
+              });
+              break;
+            case 'questions':
+              widget.chatData.add({
+                'n': 'R',
+                'options': completeResponse[type] ?? [],
+                'type': 'option',
+                'name': 'Ray Bot'
+              });
+              break;
+            default:
+          }
         });
-        widget.chatData.add({
-          'n': 'R',
-          'message': 'Pikachu',
-          'type': 'bot',
-          'name': 'Ray Bot'
-        });
-        widget.chatData.add({
-          'n': 'R',
-          'message': 'Pikachu',
-          'type': 'ticket',
-          'name': 'Ray Bot'
-        });
+        // widget.chatData.add({
+        //   'n': 'R',
+        //   'message': responses[userMessage] ?? 'Still need to study this',
+        //   'type': 'bot',
+        //   'name': 'Ray Bot'
+        // });
+        // widget.chatData.add({
+        //   'n': 'R',
+        //   'options': respondWithMoreOptions[userMessage] ?? [],
+        //   'type': 'option',
+        //   'name': 'Ray Bot'
+        // });
+        // widget.chatData.add({
+        //   'n': 'R',
+        //   'message': 'Pikachu',
+        //   'type': 'ticket',
+        //   'name': 'Ray Bot'
+        // });
         isBotTyping = false;
       });
     });
@@ -85,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   onOptionClick(x) {
-    print(x);
+    onSendToBot(x);
   }
 
   @override
