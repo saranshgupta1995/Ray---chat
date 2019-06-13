@@ -83,8 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
             case 'questions':
               widget.chatData.add({
                 'n': 'R',
-                'options': completeResponse[type] ?? [],
-                'type': 'option',
+                'questions': completeResponse[type] ?? [],
+                'type': type,
                 'name': 'Ray Bot'
               });
               break;
