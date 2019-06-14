@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 
 import 'components/chat-component.dart';
 import 'components/user-input-panel.dart';
+import 'data/responses.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -38,23 +39,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool isBotTyping = false;
 
-  final responsesData = {
-    'hi': {
-      'text': 'Hi, what can I help you with?',
-      'type': 'text questions',
-      'questions': [
-        'How do I book a Ticket?',
-        'How do I cancel a Ticket?',
-        'I am unable to sign up',
-      ]
-    },
-    'how do i book a ticket?': {
-      'text': 'Let me help you through the flow',
-      'type': 'text',
-      'questions': []
-    },
-  };
-
   String getLastUserMessage(List<dynamic> list) {
     return list.reversed.firstWhere((x) => x['type'] == 'user')['message'];
   }
@@ -81,6 +65,22 @@ class _MyHomePageState extends State<MyHomePage> {
               });
               break;
             case 'questions':
+              widget.chatData.add({
+                'n': 'R',
+                'questions': completeResponse[type] ?? [],
+                'type': type,
+                'name': 'Ray Bot'
+              });
+              break;
+            case 'ticket':
+              widget.chatData.add({
+                'n': 'R',
+                'questions': completeResponse[type] ?? [],
+                'type': type,
+                'name': 'Ray Bot'
+              });
+              break;
+            case 'cancel':
               widget.chatData.add({
                 'n': 'R',
                 'questions': completeResponse[type] ?? [],

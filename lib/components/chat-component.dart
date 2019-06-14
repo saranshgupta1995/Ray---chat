@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ray/components/bot-message.dart';
 import 'package:ray/components/option-list.dart';
 import 'package:ray/components/question-list.dart';
+import 'package:ray/components/ticket-list-cancel.dart';
 import 'package:ray/components/ticket-list.dart';
 import 'package:ray/components/user-message.dart';
 
@@ -33,6 +34,9 @@ class _ChatWindowState extends State<ChatWindow> {
               break;
             case 'ticket':
               return TicketMessage(data: widget.chatData[i]);
+              break;
+            case 'cancel':
+              return TicketCancel(data: widget.chatData[i]);
               break;
             case 'option':
               return OptionMessage(
