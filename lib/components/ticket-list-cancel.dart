@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:ray/components/ticket-details.dart';
 
-final upcoming = [
-  {
-    'src': 'Bangalore',
-    'dest': 'Chennai',
-    'tripTime': 'Friday, 7 Jun 2019, 09:15 PM',
-    'travelName': 'DreamLiner Travels',
-    'bp': 'Indra Nagar'
-  }
-];
-
 class _TicketCancelState extends State<TicketCancel> {
+  
   Widget build(BuildContext context) {
     return Container(
       height: 130,
       child: ListView(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-        children: List.generate(upcoming.length, (index) {
+        children: List.generate(widget.data.length, (index) {
           return InkWell(
             onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SecondRoute())),
+                MaterialPageRoute(builder: (context) => TicketDetails(data:widget.data[index]))),
             child: new Card(
-              color: Colors.blue[index * 100],
+              // color: Colors.blue[index * 100],
               child: new Padding(
                 padding: EdgeInsets.all(10),
                 child: new Container(
@@ -46,7 +37,7 @@ class _TicketCancelState extends State<TicketCancel> {
                               Row(
                                 children: <Widget>[
                                   Text(
-                                    "${upcoming[index]['src']} - ${upcoming[index]['dest']}",
+                                    "${widget.data[index]['src']} - ${widget.data[index]['dest']}",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -55,7 +46,7 @@ class _TicketCancelState extends State<TicketCancel> {
                               Row(
                                 children: <Widget>[
                                   Text(
-                                    "${upcoming[index]['tripTime']}",
+                                    "${widget.data[index]['tripTime']}",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w300,
@@ -73,7 +64,7 @@ class _TicketCancelState extends State<TicketCancel> {
                               Row(
                                 children: <Widget>[
                                   Text(
-                                    "${upcoming[index]['travelName']}",
+                                    "${widget.data[index]['travelName']}",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w300,
@@ -89,7 +80,7 @@ class _TicketCancelState extends State<TicketCancel> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              "${upcoming[index]['bp']}",
+                              "${widget.data[index]['bp']}",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w300,

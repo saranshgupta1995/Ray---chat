@@ -10,6 +10,25 @@ void main() {
   runApp(MyApp());
 }
 
+final upcoming = [
+  {
+    'src': 'Bangalore',
+    'dest': 'Chennai',
+    'tripTime': 'Friday, 7 Jun 2019, 09:15 PM',
+    'travelName': 'DreamLiner Travels',
+    'bp': 'Indra Nagar'
+  },
+  {
+    'src': 'Chennai',
+    'dest': 'Bangalore',
+    'tripTime': 'Sunday, 9 Jun 2019, 09:15 PM',
+    'travelName': 'DreamLiner Travels',
+    'bp': 'Koyembedu'
+  }
+];
+
+final List<Map <dynamic,dynamic>> chatData = [];
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +39,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(
         title: 'Ray',
-        chatData: [],
+        chatData: chatData,
       ),
     );
   }
@@ -135,9 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             ChatWindow(
-              chatData: widget.chatData,
-              onOptionClick: onOptionClick,
-            ),
+                chatData: widget.chatData,
+                onOptionClick: onOptionClick,
+                tickets: upcoming),
             UserInputPanel(
               textColor: Colors.black87,
               placeHolderColor: Colors.black45,
