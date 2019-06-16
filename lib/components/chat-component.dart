@@ -12,9 +12,12 @@ class _ChatWindowState extends State<ChatWindow> {
     'user': UserMessage,
   };
 
+
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView(
+        // reverse: true,
+        controller: widget.scrollController,
         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
         children: List.generate(widget.chatData.length, (i) {
           switch (widget.chatData[i]['type']) {
@@ -36,7 +39,8 @@ class _ChatWindowState extends State<ChatWindow> {
               return TicketMessage(data: widget.tickets);
               break;
             case 'cancel':
-              return TicketCancel(data: widget.tickets);
+              return TicketCancel(
+                  data: widget.tickets, removeTickets: widget.removeTickets);
               break;
             case 'option':
               return OptionMessage(
@@ -55,8 +59,16 @@ class ChatWindow extends StatefulWidget {
   final chatData;
   final onOptionClick;
   final tickets;
+  final removeTickets;
+  final scrollController;
 
-  const ChatWindow({Key key, this.chatData, this.tickets, this.onOptionClick})
+  const ChatWindow(
+      {Key key,
+      this.chatData,
+      this.scrollController,
+      this.removeTickets,
+      this.tickets,
+      this.onOptionClick})
       : super(key: key);
 
   @override

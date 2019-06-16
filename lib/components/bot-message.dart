@@ -12,13 +12,6 @@ class _BotMessageState extends State<BotMessage> {
               new CircleAvatar(
                 child: new Image.network("http://res.cloudinary.com/kennyy/image/upload/v1531317427/avatar_z1rc6f.png"),
               )
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: Colors.red,
-              //   ),
-              //   padding: EdgeInsets.all(10),
-              //   child: Text(widget.data['n']),
-              // ),
             ],
           ),
           Expanded(

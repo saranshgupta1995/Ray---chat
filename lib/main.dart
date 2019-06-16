@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'components/chat-component.dart';
 import 'components/user-input-panel.dart';
@@ -12,6 +13,7 @@ void main() {
 
 final upcoming = [
   {
+    'id': 1,
     'src': 'Bangalore',
     'dest': 'Chennai',
     'tripTime': 'Friday, 7 Jun 2019, 09:15 PM',
@@ -19,6 +21,7 @@ final upcoming = [
     'bp': 'Indra Nagar'
   },
   {
+    'id': 2,
     'src': 'Chennai',
     'dest': 'Bangalore',
     'tripTime': 'Sunday, 9 Jun 2019, 09:15 PM',
@@ -27,7 +30,7 @@ final upcoming = [
   }
 ];
 
-final List<Map <dynamic,dynamic>> chatData = [];
+final List<Map<dynamic, dynamic>> chatData = [];
 
 class MyApp extends StatelessWidget {
   @override
@@ -65,6 +68,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Future getResponse() async {
     await Future.delayed(new Duration(milliseconds: 1000));
   }
+
+  removeTicket(t) {
+    setState(() {
+      upcoming.removeWhere((x) {
+        return x['id'] == t;
+      });
+    });
+  }
+
+  ScrollController _chatListScrollController = new ScrollController();
 
   onSendToBot(e) {
     getResponse().then((x) {
@@ -109,25 +122,13 @@ class _MyHomePageState extends State<MyHomePage> {
               break;
             default:
           }
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            _chatListScrollController.animateTo(
+                _chatListScrollController.position.maxScrollExtent,
+                curve: Curves.ease,
+                duration: const Duration(milliseconds: 200));
+          });
         });
-        // widget.chatData.add({
-        //   'n': 'R',
-        //   'message': responses[userMessage] ?? 'Still need to study this',
-        //   'type': 'bot',
-        //   'name': 'Ray Bot'
-        // });
-        // widget.chatData.add({
-        //   'n': 'R',
-        //   'options': respondWithMoreOptions[userMessage] ?? [],
-        //   'type': 'option',
-        //   'name': 'Ray Bot'
-        // });
-        // widget.chatData.add({
-        //   'n': 'R',
-        //   'message': 'Pikachu',
-        //   'type': 'ticket',
-        //   'name': 'Ray Bot'
-        // });
         isBotTyping = false;
       });
     });
@@ -154,6 +155,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             ChatWindow(
+                scrollController: _chatListScrollController,
+                removeTickets: removeTicket,
                 chatData: widget.chatData,
                 onOptionClick: onOptionClick,
                 tickets: upcoming),

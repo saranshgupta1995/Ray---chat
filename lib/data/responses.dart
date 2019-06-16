@@ -21,9 +21,12 @@ final responsesData = {
     'questions': []
   },
   'i am unable to sign up': {
-    'text': 'Let me help you through the flow',
-    'type': 'text',
-    'questions': []
+    'text': 'Which step are you having trouble with?',
+    'type': 'text questions',
+    'questions': [
+      'I am not getting an OTP on my number.',
+      'I am not getting the email verification link.',
+    ]
   },
   'i want to see my current bookings': {
     'text': 'Sure!',
@@ -34,5 +37,15 @@ final responsesData = {
     'text': 'Please choose a booking under your account',
     'type': 'text cancel',
     'questions': []
-  }
+  },
+  'i am not getting an otp for phone number verification.': {
+    'text': 'Please call us at 9876543210 with OTP 6546 to verify your number',
+    'type': 'text',
+    'questions': []
+  },
+  'i am not getting an email for email address verification.': {
+    'text': 'Please write to us at rbeconfirm@gmail.com verify your email account',
+    'type': 'text',
+    'questions': []
+  },
 };

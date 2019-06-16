@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ray/components/ticket-details.dart';
 
 class _TicketCancelState extends State<TicketCancel> {
-  
   Widget build(BuildContext context) {
     return Container(
       height: 130,
@@ -11,8 +10,39 @@ class _TicketCancelState extends State<TicketCancel> {
         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
         children: List.generate(widget.data.length, (index) {
           return InkWell(
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => TicketDetails(data:widget.data[index]))),
+            onTap: () => showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title:
+                        Text('Do you want to proceed with the cancellation?'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                            '${widget.data[index]['bp']} (${widget.data[index]['src']}) - ${widget.data[index]['dest']}'),
+                        Text('Cancellation charges : 0 INR'),
+                        Text('Press Confirm to cancel the booking'),
+                      ],
+                    ),
+                    actions: <Widget>[
+                      new FlatButton(
+                        child: Text('Cancel'),
+                        onPressed: ()=>Navigator.of(context).pop(),
+                      ),
+                      new FlatButton(
+                        child: Text('Confirm'),
+                        onPressed: (){
+                          widget.removeTickets(widget.data[index]['id']);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                }),
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => TicketDetails(data:widget.data[index]))),
             child: new Card(
               // color: Colors.blue[index * 100],
               child: new Padding(
@@ -114,8 +144,9 @@ class _TicketCancelState extends State<TicketCancel> {
 
 class TicketCancel extends StatefulWidget {
   final data;
+  final removeTickets;
 
-  const TicketCancel({Key key, this.data}) : super(key: key);
+  const TicketCancel({Key key, this.data, this.removeTickets}) : super(key: key);
 
   @override
   _TicketCancelState createState() => _TicketCancelState();
