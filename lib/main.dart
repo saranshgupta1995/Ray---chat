@@ -77,6 +77,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  scrollToBottom(ScrollController scroller) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      scroller.animateTo(scroller.position.maxScrollExtent,
+          curve: Curves.ease, duration: const Duration(milliseconds: 200));
+    });
+  }
+
   ScrollController _chatListScrollController = new ScrollController();
 
   onSendToBot(e) {
@@ -122,12 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
               break;
             default:
           }
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-            _chatListScrollController.animateTo(
-                _chatListScrollController.position.maxScrollExtent,
-                curve: Curves.ease,
-                duration: const Duration(milliseconds: 200));
-          });
+          scrollToBottom(_chatListScrollController);
         });
         isBotTyping = false;
       });
@@ -139,6 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
       isBotTyping = true;
     });
+
+    scrollToBottom(_chatListScrollController);
   }
 
   onOptionClick(x) {
