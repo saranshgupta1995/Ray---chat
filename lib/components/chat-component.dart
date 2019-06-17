@@ -12,7 +12,6 @@ class _ChatWindowState extends State<ChatWindow> {
     'user': UserMessage,
   };
 
-
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView(
@@ -26,6 +25,13 @@ class _ChatWindowState extends State<ChatWindow> {
               break;
             case 'bot':
               return BotMessage(data: widget.chatData[i]);
+            case 'final':
+              return BotMessage(data: {
+                'n': 'R',
+                'message': 'Hope this solved your concern.',
+                'type': 'bot',
+                'name': 'Ray Bot'
+              });
               break;
             case 'questions':
               return QuestionMessage(

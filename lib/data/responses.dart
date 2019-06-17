@@ -4,14 +4,13 @@ final responsesData = {
     'type': 'text questions',
     'questions': [
       'How do I book a Ticket?',
-      'How do I cancel a Ticket?',
       'I am unable to sign up',
       'I want to see my current bookings',
       'I want to cancel an existing booking',
     ]
   },
   'how do i book a ticket?': {
-    'text': 'Let me help you through the flow',
+    'text': 'Please follow the steps at help.redbus.in',
     'type': 'text',
     'questions': []
   },
@@ -38,14 +37,14 @@ final responsesData = {
     'type': 'text cancel',
     'questions': []
   },
-  'i am not getting an otp for phone number verification.': {
+  'i am not getting an otp on my number.': {
     'text': 'Please call us at 9876543210 with OTP 6546 to verify your number',
-    'type': 'text',
+    'type': 'text final',
     'questions': []
   },
-  'i am not getting an email for email address verification.': {
+  'i am not getting the email verification link.': {
     'text': 'Please write to us at rbeconfirm@gmail.com verify your email account',
-    'type': 'text',
+    'type': 'text final',
     'questions': []
   },
 };

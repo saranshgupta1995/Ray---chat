@@ -127,6 +127,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 'name': 'Ray Bot'
               });
               break;
+            case 'final':
+              widget.chatData.add({
+                'n': 'R',
+                'questions': completeResponse[type] ?? [],
+                'type': type,
+                'name': 'Ray Bot'
+              });
+              break;
             default:
           }
           scrollToBottom(_chatListScrollController);
@@ -151,6 +159,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    if(chatData.length==0){
+      onSendToBot('Hi');
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
