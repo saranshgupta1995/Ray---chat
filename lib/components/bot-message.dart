@@ -10,7 +10,7 @@ class _BotMessageState extends State<BotMessage> {
           Column(
             children: <Widget>[
               new CircleAvatar(
-                child: new Image.network("http://res.cloudinary.com/kennyy/image/upload/v1531317427/avatar_z1rc6f.png"),
+                child: new Image.asset("assets/images/avatar_red.gif"),
               )
             ],
           ),

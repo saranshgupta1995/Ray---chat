@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:location/location.dart';
 
 import 'components/chat-component.dart';
 import 'components/user-input-panel.dart';
@@ -166,26 +167,76 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.red,
           title: Text(widget.title),
         ),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            ChatWindow(
-                scrollController: _chatListScrollController,
-                removeTickets: removeTicket,
-                chatData: widget.chatData,
-                onOptionClick: onOptionClick,
-                tickets: upcoming),
-            UserInputPanel(
-              textColor: Colors.black87,
-              placeHolderColor: Colors.black45,
-              placeHolder: 'Start Typing..',
-              buttonText: 'Send',
-              onSend: onSendToBot,
-              disabled: isBotTyping,
-            )
-          ],
-        ));
+        body: GetLocationPage());
   }
 }
+
+class GetLocationPage extends StatefulWidget {
+  @override
+  _GetLocationPageState createState() => _GetLocationPageState();
+}
+
+class _GetLocationPageState extends State<GetLocationPage> {
+
+  var location = new Location();
+  Map<String, double> currentLocation;
+  Map<String, double> userLocation;
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    location.onLocationChanged().listen((value) {
+      setState(() {
+        currentLocation = value;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            currentLocation == null
+                ? CircularProgressIndicator()
+                : Text("Location:" +
+                    currentLocation["latitude"].toString() +
+                    " " +
+                    currentLocation["longitude"].toString()),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                onPressed: () {
+                  _getLocation().then((value) {
+                    setState(() {
+                      userLocation = value;
+                    });
+                  });
+                },
+                color: Colors.blue,
+                child: Text("Get Location", style: TextStyle(color: Colors.white),),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<Map<String, double>> _getLocation() async {
+    var currentLocation = <String, double>{};
+    try {
+      currentLocation = await location.getLocation();
+    } catch (e) {
+      currentLocation = null;
+    }
+    return currentLocation;
+  }
+}
+
